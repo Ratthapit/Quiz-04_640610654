@@ -7,7 +7,7 @@ export default function balanceRoute(req, res) {
 
     const user = checkToken(req);
 
-    if (!user.isAdmin) {
+    if (user.isAdmin) {
       if (!user || user.isAdmin)
         return res.status(403).json({
           ok: false,

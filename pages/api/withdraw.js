@@ -7,7 +7,7 @@ export default function withdrawRoute(req, res) {
     //check authentication
     const user = checkToken(req);
 
-    if (!user.isAdmin) {
+    if (user.isAdmin) {
       return res.status(403).json({
         ok: false,
         message: "You do not have permission to withdraw",

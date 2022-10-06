@@ -8,7 +8,7 @@ export default function depositRoute(req, res) {
 
     const user = checkToken(req);
 
-    if (!user.isAdmin) {
+    if (user.isAdmin) {
       return res.status(403).json({
         ok: false,
         message: "You do not have permission to deposit",
