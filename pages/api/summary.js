@@ -4,14 +4,10 @@ import { writeUsersDB } from "../../backendLibs/dbLib";
 
 export default function summaryRoute(req, res) {
   if (req.method === "GET") {
-    const { username, password, isAdmin } = req.body;
     const user = checkToken(req);
 
-    if (isAdmin) {
-      if (!user || !user.isAdmin)
-        return res
-          .status(403)
-          .json({ ok: false, message: "Permission denied" });
+    if (!user.isAdmin) {
+      return res.status(403).json({ ok: false, message: "Permission denied" });
     }
 
     const data = readUsersDB();

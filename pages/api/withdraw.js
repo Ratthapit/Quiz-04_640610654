@@ -5,15 +5,13 @@ import { writeUsersDB } from "../../backendLibs/dbLib";
 export default function withdrawRoute(req, res) {
   if (req.method === "PUT") {
     //check authentication
-    const { username, password, isAdmin } = req.body;
     const user = checkToken(req);
 
-    if (!isAdmin) {
-      if (!user || user.isAdmin)
-        return res.status(403).json({
-          ok: false,
-          message: "You do not have permission to withdraw",
-        });
+    if (!user.isAdmin) {
+      return res.status(403).json({
+        ok: false,
+        message: "You do not have permission to withdraw",
+      });
     }
 
     const amount = req.body.amount;

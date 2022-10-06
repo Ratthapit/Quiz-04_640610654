@@ -4,10 +4,10 @@ import { readUsersDB } from "../../backendLibs/dbLib";
 export default function balanceRoute(req, res) {
   if (req.method === "GET") {
     //check authentication
-    const { username, password, isAdmin } = req.body;
+
     const user = checkToken(req);
 
-    if (!isAdmin) {
+    if (!user.isAdmin) {
       if (!user || user.isAdmin)
         return res.status(403).json({
           ok: false,
