@@ -5,15 +5,13 @@ import { checkToken } from "../../../backendLibs/checkToken";
 export default function userRegisterRoute(req, res) {
   if (req.method === "POST") {
     const { username, password, isAdmin } = req.body;
-
+    const user = checkToken(req);
     //check authentication
     if (isAdmin) {
-      const user = checkToken(req);
-      if (!user || !user.isAdmin)
-        return res.status(403).json({
-          ok: false,
-          message: "You do not have permission to create account",
-        });
+      return res.status(403).json({
+        ok: false,
+        message: "You do not have permission to create account",
+      });
     }
 
     //validate body
